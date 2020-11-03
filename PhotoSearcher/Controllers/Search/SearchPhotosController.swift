@@ -10,6 +10,8 @@ import UIKit
 class SearchPhotosController: UIViewController {
   lazy var activityIndicator = UIActivityIndicatorView()
   var searchController: UISearchController?
+  var totalSearchResults = 0
+  var currentSearchPage = 1
   var photoDataResults: [PhotoData] = []
   var largePhotos: [LargePhoto] = []
   var selectedCollectionItemIndexPath: IndexPath?
@@ -32,8 +34,11 @@ class SearchPhotosController: UIViewController {
     searchController = UISearchController(searchResultsController: suggestedSearchTableController)
     searchController?.searchResultsUpdater = suggestedSearchTableController
     searchController?.obscuresBackgroundDuringPresentation = false
+
+    searchController?.searchBar.delegate = self
     searchController?.searchBar.placeholder = "Search photos"
     searchController?.searchBar.tintColor = .black
+
     navigationItem.searchController = searchController
     navigationItem.hidesSearchBarWhenScrolling = false
   }
@@ -55,9 +60,36 @@ class SearchPhotosController: UIViewController {
     fullScreenPhotosController.photos = largePhotos
   }
 
+  func resetSearchResults() {
+    totalSearchResults = 0
+    photoDataResults = []
+    largePhotos = []
+    photosCollectionView.reloadData()
+  }
 
-  func searchPhotos() {
-    // map results and append result to large photos
+  func searchPhotos(pageNumber: Int) {
+    guard let searchText = searchController?.searchBar.text else { return }
+    activityIndicator.showActivityIndicatorInView(view: view)
+    PhotosSearchService.shared.searchPhotosWith(searchTerm: searchText,
+                                                page: pageNumber) { [weak self] searchResult, error in
+      guard let self = self else { return }
+      defer { self.activityIndicator.stopActivityIndicator(view: self.view) }
+      if let error = error {
+        BasicAlert.showAlert(message: error, viewController: self)
+      } else if let result = searchResult,
+                result.hits.isEmpty == false {
+        self.totalSearchResults = result.totalHits
+        self.photoDataResults.append(contentsOf: result.hits)
+        let newLargePhotos = result.hits.map { photoData in
+          return LargePhoto(photoData: photoData)
+        }
+        self.largePhotos.append(contentsOf: newLargePhotos)
+        self.photosCollectionView.reloadData()
+      } else if searchResult?.hits.isEmpty == true {
+        BasicAlert.showAlert(message: "No results. Please try with other key words.",
+                             viewController: self)
+      }
+    }
   }
 
   func downloadPreviewPhotoForCellAt(indexPath: IndexPath) {
@@ -69,6 +101,14 @@ class SearchPhotosController: UIViewController {
               as? PhotoCollectionViewCell else { return }
       cell.display(previewPhoto: previewImage)
     }
+  }
+}
+
+extension SearchPhotosController: UISearchBarDelegate {
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    searchBar.resignFirstResponder()
+    resetSearchResults()
+    searchPhotos(pageNumber: 1)
   }
 }
 
@@ -93,8 +133,16 @@ extension SearchPhotosController: UICollectionViewDelegate, UICollectionViewData
     performSegue(withIdentifier: "ShowFullScreen", sender: self)
   }
 
-  func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    // pagination
+  func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell,
+                      forItemAt indexPath: IndexPath) {
+    if indexPath.row == photoDataResults.count - 1,
+       photoDataResults.count != totalSearchResults {
+      currentSearchPage += 1
+      searchPhotos(pageNumber: currentSearchPage)
+    } else if let collectionCell = cell as? PhotoCollectionViewCell,
+              collectionCell.isImageNil() {
+      downloadPreviewPhotoForCellAt(indexPath: indexPath)
+    }
   }
 }
 
@@ -102,6 +150,7 @@ extension SearchPhotosController: SuggestedSearchDelegate {
   func performSearchFor(query: String) {
     searchController?.searchBar.text = query
     searchController?.searchBar.resignFirstResponder()
-    searchPhotos()
+    resetSearchResults()
+    searchPhotos(pageNumber: 1)
   }
 }

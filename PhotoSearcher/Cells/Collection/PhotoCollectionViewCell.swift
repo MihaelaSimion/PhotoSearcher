@@ -8,18 +8,22 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-
+  
   @IBOutlet private weak var imageView: UIImageView!
   @IBOutlet private weak var containerView: UIView!
-
+  
   func display(previewPhoto: UIImage?) {
     containerView.layer.cornerRadius = 8
     containerView.backgroundColor = .lightGray
     imageView.image = previewPhoto
   }
-
+  
   func display(largePhoto: UIImage?) {
     containerView.backgroundColor = .clear
     imageView.image = largePhoto
+  }
+  
+  func isImageNil() -> Bool {
+    return imageView.image == nil
   }
 }
