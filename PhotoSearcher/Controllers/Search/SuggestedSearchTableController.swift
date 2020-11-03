@@ -12,7 +12,8 @@ protocol SuggestedSearchDelegate: AnyObject {
 }
 
 class SuggestedSearchTableController: UITableViewController {
-  var previousSuccessfulSearches = ["cat", "dog", "parrots"]
+  var previousSuccessfulSearches: [String] = []
+  lazy var successfulSearchHandler: SuccessfulSearchHandler = CoreDataManager()
   weak var suggestedSearchDelegate: SuggestedSearchDelegate?
 
   override func viewDidLoad() {
@@ -44,7 +45,7 @@ extension SuggestedSearchTableController: UISearchResultsUpdating {
   func updateSearchResults(for searchController: UISearchController) {
     if searchController.searchBar.text?.isEmpty == true {
       view.isHidden = false
-      // fetch last 10 searches from DB
+      previousSuccessfulSearches = successfulSearchHandler.fetchSearchQueries()
       tableView.reloadData()
     } else {
       view.isHidden = true

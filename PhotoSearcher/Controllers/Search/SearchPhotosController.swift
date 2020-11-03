@@ -9,6 +9,7 @@ import UIKit
 
 class SearchPhotosController: UIViewController {
   lazy var activityIndicator = UIActivityIndicatorView()
+  lazy var successfulSearchHandler: SuccessfulSearchHandler = CoreDataManager()
   var searchController: UISearchController?
   var totalSearchResults = 0
   var currentSearchPage = 1
@@ -24,6 +25,8 @@ class SearchPhotosController: UIViewController {
     photosCollectionView.delegate = self
     photosCollectionView.register(UINib(nibName: "PhotoCollectionViewCell", bundle: nil),
                                   forCellWithReuseIdentifier: "PhotoCollectionViewCell")
+    photosCollectionView.contentInset.top = 16
+    photosCollectionView.contentInset.bottom = 16
     setUpSearchController()
     configureCollectionItemSize()
   }
@@ -78,18 +81,29 @@ class SearchPhotosController: UIViewController {
         BasicAlert.showAlert(message: error, viewController: self)
       } else if let result = searchResult,
                 result.hits.isEmpty == false {
-        self.totalSearchResults = result.totalHits
-        self.photoDataResults.append(contentsOf: result.hits)
-        let newLargePhotos = result.hits.map { photoData in
-          return LargePhoto(photoData: photoData)
-        }
-        self.largePhotos.append(contentsOf: newLargePhotos)
+        self.saveSearchResultsInMemory(result: result)
+        self.saveSuccessfulSearch(query: searchText)
         self.photosCollectionView.reloadData()
       } else if searchResult?.hits.isEmpty == true {
         BasicAlert.showAlert(message: "No results. Please try with other key words.",
                              viewController: self)
       }
     }
+  }
+
+  func saveSearchResultsInMemory(result: PhotoQuerySearchResult) {
+    totalSearchResults = result.totalHits
+    photoDataResults.append(contentsOf: result.hits)
+    let newLargePhotos = result.hits.map { photoData in
+      return LargePhoto(photoData: photoData)
+    }
+    largePhotos.append(contentsOf: newLargePhotos)
+  }
+
+  func saveSuccessfulSearch(query: String) {
+    guard query.trimmingCharacters(in: .whitespaces).isEmpty == false else { return }
+    successfulSearchHandler.saveSearch(query: query)
+    successfulSearchHandler.keepOnlyLastTenSearches()
   }
 
   func downloadPreviewPhotoForCellAt(indexPath: IndexPath) {

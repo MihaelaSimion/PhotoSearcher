@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rfm-gG-uvz">
-                                <rect key="frame" x="24" y="112" width="327" height="571"/>
+                                <rect key="frame" x="24" y="96" width="327" height="571"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eyh-wk-gxr">
                                     <size key="itemSize" width="160" height="160"/>
@@ -32,10 +32,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="rfm-gG-uvz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="3FI-BE-jC4"/>
+                            <constraint firstItem="rfm-gG-uvz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3FI-BE-jC4"/>
                             <constraint firstItem="rfm-gG-uvz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="RA1-Xf-VOD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rfm-gG-uvz" secondAttribute="trailing" constant="24" id="dYa-oz-4Oj"/>
-                            <constraint firstItem="rfm-gG-uvz" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="16" id="gp8-Z7-abp"/>
+                            <constraint firstItem="rfm-gG-uvz" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="gp8-Z7-abp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="9Yb-a6-MHS"/>

@@ -18,6 +18,8 @@
 		4732596325516B5C0088C27C /* LargePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732596225516B5C0088C27C /* LargePhoto.swift */; };
 		4732596725516F5E0088C27C /* ActivityIndicatorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732596625516F5E0088C27C /* ActivityIndicatorExtension.swift */; };
 		4732596C2551950C0088C27C /* BasicAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732596B2551950C0088C27C /* BasicAlert.swift */; };
+		4732596F2551ACE40088C27C /* SuccessfulSearchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732596E2551ACE40088C27C /* SuccessfulSearchHandler.swift */; };
+		473259732551AD370088C27C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473259722551AD370088C27C /* CoreDataManager.swift */; };
 		4778E3B22550265B000B0EB7 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4778E3B12550265B000B0EB7 /* APIKeys.swift */; };
 		4778E3BB2550288F000B0EB7 /* pixabaySecretApiKey.json in Resources */ = {isa = PBXBuildFile; fileRef = 4778E3BA2550288F000B0EB7 /* pixabaySecretApiKey.json */; };
 		4778E3C325502E14000B0EB7 /* PhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4778E3C225502E14000B0EB7 /* PhotoCollectionViewCell.xib */; };
@@ -45,6 +47,8 @@
 		4732596225516B5C0088C27C /* LargePhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePhoto.swift; sourceTree = "<group>"; };
 		4732596625516F5E0088C27C /* ActivityIndicatorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorExtension.swift; sourceTree = "<group>"; };
 		4732596B2551950C0088C27C /* BasicAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAlert.swift; sourceTree = "<group>"; };
+		4732596E2551ACE40088C27C /* SuccessfulSearchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulSearchHandler.swift; sourceTree = "<group>"; };
+		473259722551AD370088C27C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		4778E3B12550265B000B0EB7 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		4778E3BA2550288F000B0EB7 /* pixabaySecretApiKey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = pixabaySecretApiKey.json; sourceTree = "<group>"; };
 		4778E3C225502E14000B0EB7 /* PhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 		4778E3B0255025FA000B0EB7 /* Local persistance */ = {
 			isa = PBXGroup;
 			children = (
+				4732596E2551ACE40088C27C /* SuccessfulSearchHandler.swift */,
 				4778E3B5255026F1000B0EB7 /* CoreData */,
 			);
 			path = "Local persistance";
@@ -172,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				4709E76025501C02003A97F7 /* PhotoSearcher.xcdatamodeld */,
+				473259722551AD370088C27C /* CoreDataManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -290,6 +296,7 @@
 				4732596725516F5E0088C27C /* ActivityIndicatorExtension.swift in Sources */,
 				4778E3CD255045FA000B0EB7 /* SuggestedSearchTableController.swift in Sources */,
 				4732596C2551950C0088C27C /* BasicAlert.swift in Sources */,
+				473259732551AD370088C27C /* CoreDataManager.swift in Sources */,
 				4732596325516B5C0088C27C /* LargePhoto.swift in Sources */,
 				4709E76225501C02003A97F7 /* PhotoSearcher.xcdatamodeld in Sources */,
 				4778E3D325504C79000B0EB7 /* SugestedSearchTableViewCell.swift in Sources */,
@@ -300,6 +307,7 @@
 				47E2B42F255151A4001204DB /* PhotosDownloadService.swift in Sources */,
 				4709E75A25501C02003A97F7 /* SceneDelegate.swift in Sources */,
 				47E2B43525515535001204DB /* PhotoData.swift in Sources */,
+				4732596F2551ACE40088C27C /* SuccessfulSearchHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
