@@ -7,8 +7,13 @@
 
 import UIKit
 
+protocol SuggestedSearchDelegate: AnyObject {
+  func performSearchFor(query: String)
+}
+
 class SuggestedSearchTableController: UITableViewController {
   var previousSuccessfulSearches = ["cat", "dog", "parrots"]
+  weak var suggestedSearchDelegate: SuggestedSearchDelegate?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -16,6 +21,7 @@ class SuggestedSearchTableController: UITableViewController {
                        forCellReuseIdentifier: "SugestedSearchTableCell")
   }
 
+  // MARK: - TableView delegates
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return previousSuccessfulSearches.count
   }
@@ -29,7 +35,8 @@ class SuggestedSearchTableController: UITableViewController {
   }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    // TODO - perform search
+    let selectedQuery = previousSuccessfulSearches[indexPath.row]
+    suggestedSearchDelegate?.performSearchFor(query: selectedQuery)
   }
 }
 
