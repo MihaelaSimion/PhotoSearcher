@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SugestedSearchTableCell" id="DRD-6e-nvA" customClass="SugestedSearchTableViewCell" customModule="PhotoSearcher" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DRD-6e-nvA" id="8Sa-F8-1fn">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCu-Pe-x0f">
+                        <rect key="frame" x="24" y="8" width="366" height="28"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="PCu-Pe-x0f" secondAttribute="trailing" constant="24" id="B1b-4X-nsh"/>
+                    <constraint firstItem="PCu-Pe-x0f" firstAttribute="leading" secondItem="8Sa-F8-1fn" secondAttribute="leading" constant="24" id="Xvc-i5-Uei"/>
+                    <constraint firstItem="PCu-Pe-x0f" firstAttribute="top" secondItem="8Sa-F8-1fn" secondAttribute="top" constant="8" id="aAl-H8-agS"/>
+                    <constraint firstAttribute="bottom" secondItem="PCu-Pe-x0f" secondAttribute="bottom" constant="8" id="hiq-hb-oqA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="queryLabel" destination="PCu-Pe-x0f" id="Ua0-MT-kNb"/>
+            </connections>
+            <point key="canvasLocation" x="222" y="89"/>
+        </tableViewCell>
+    </objects>
+</document>
