@@ -11,6 +11,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
   
   @IBOutlet private weak var imageView: UIImageView!
   @IBOutlet private weak var containerView: UIView!
+  @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
   
   func display(previewPhoto: UIImage?) {
     containerView.layer.cornerRadius = 8
@@ -19,11 +20,23 @@ class PhotoCollectionViewCell: UICollectionViewCell {
   }
   
   func display(largePhoto: UIImage?) {
-    containerView.backgroundColor = .clear
+    containerView.backgroundColor = .white
     imageView.image = largePhoto
   }
   
   func isImageNil() -> Bool {
     return imageView.image == nil
+  }
+  
+  func startActivityIndicator() {
+    activityIndicator.startAnimating()
+  }
+  
+  func stopActivityIndicator() {
+    activityIndicator.stopAnimating()
+  }
+  
+  func isActivityIndicatorAnimating() -> Bool {
+    return activityIndicator.isAnimating
   }
 }
