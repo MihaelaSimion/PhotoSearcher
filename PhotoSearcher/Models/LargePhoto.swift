@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LargePhoto {
+struct LargePhoto {
   let url: String
   var largeImage: UIImage?
 
