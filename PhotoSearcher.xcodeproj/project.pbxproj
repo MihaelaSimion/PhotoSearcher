@@ -16,6 +16,8 @@
 		4709E76725501C05003A97F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4709E76525501C05003A97F7 /* LaunchScreen.storyboard */; };
 		4709E772255023F7003A97F7 /* FullScreenPhotosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709E771255023F7003A97F7 /* FullScreenPhotosController.swift */; };
 		472531312553E9A000772ECC /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472531302553E9A000772ECC /* NotificationNames.swift */; };
+		47253137255422D200772ECC /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47253136255422D200772ECC /* SearchViewModel.swift */; };
+		4725313A2554386700772ECC /* FullScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472531392554386700772ECC /* FullScreenViewModel.swift */; };
 		4732596325516B5C0088C27C /* LargePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732596225516B5C0088C27C /* LargePhoto.swift */; };
 		4732596725516F5E0088C27C /* ActivityIndicatorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732596625516F5E0088C27C /* ActivityIndicatorExtension.swift */; };
 		4732596C2551950C0088C27C /* BasicAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732596B2551950C0088C27C /* BasicAlert.swift */; };
@@ -46,6 +48,8 @@
 		4709E76825501C05003A97F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4709E771255023F7003A97F7 /* FullScreenPhotosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenPhotosController.swift; sourceTree = "<group>"; };
 		472531302553E9A000772ECC /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
+		47253136255422D200772ECC /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		472531392554386700772ECC /* FullScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenViewModel.swift; sourceTree = "<group>"; };
 		4732596225516B5C0088C27C /* LargePhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePhoto.swift; sourceTree = "<group>"; };
 		4732596625516F5E0088C27C /* ActivityIndicatorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorExtension.swift; sourceTree = "<group>"; };
 		4732596B2551950C0088C27C /* BasicAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAlert.swift; sourceTree = "<group>"; };
@@ -98,13 +102,14 @@
 				4709E75925501C02003A97F7 /* SceneDelegate.swift */,
 				4709E76825501C05003A97F7 /* Info.plist */,
 				4778E3AF255025D6000B0EB7 /* Cells */,
-				4709E75D25501C02003A97F7 /* Main.storyboard */,
 				4709E7742550240C003A97F7 /* Controllers */,
 				4732596525516F370088C27C /* Helpers */,
 				4778E3B0255025FA000B0EB7 /* Local persistance */,
 				4778E3AE255025AB000B0EB7 /* Models */,
 				4709E7762550247A003A97F7 /* Networking */,
 				4709E7752550241B003A97F7 /* Resources */,
+				4725313425541DAD00772ECC /* Storyboards */,
+				4725313525541E3300772ECC /* View Models */,
 			);
 			path = PhotoSearcher;
 			sourceTree = "<group>";
@@ -123,7 +128,6 @@
 			children = (
 				4778E3B12550265B000B0EB7 /* APIKeys.swift */,
 				4709E76325501C04003A97F7 /* Assets.xcassets */,
-				4709E76525501C05003A97F7 /* LaunchScreen.storyboard */,
 				4778E3BA2550288F000B0EB7 /* pixabaySecretApiKey.json */,
 			);
 			path = Resources;
@@ -136,6 +140,24 @@
 				47E2B42E255151A4001204DB /* PhotosDownloadService.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		4725313425541DAD00772ECC /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				4709E76525501C05003A97F7 /* LaunchScreen.storyboard */,
+				4709E75D25501C02003A97F7 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		4725313525541E3300772ECC /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				472531392554386700772ECC /* FullScreenViewModel.swift */,
+				47253136255422D200772ECC /* SearchViewModel.swift */,
+			);
+			path = "View Models";
 			sourceTree = "<group>";
 		};
 		4732596525516F370088C27C /* Helpers */ = {
@@ -299,8 +321,10 @@
 				4732596725516F5E0088C27C /* ActivityIndicatorExtension.swift in Sources */,
 				4778E3CD255045FA000B0EB7 /* SuggestedSearchTableController.swift in Sources */,
 				4732596C2551950C0088C27C /* BasicAlert.swift in Sources */,
+				47253137255422D200772ECC /* SearchViewModel.swift in Sources */,
 				473259732551AD370088C27C /* CoreDataManager.swift in Sources */,
 				4732596325516B5C0088C27C /* LargePhoto.swift in Sources */,
+				4725313A2554386700772ECC /* FullScreenViewModel.swift in Sources */,
 				4709E76225501C02003A97F7 /* PhotoSearcher.xcdatamodeld in Sources */,
 				472531312553E9A000772ECC /* NotificationNames.swift in Sources */,
 				4778E3D325504C79000B0EB7 /* SugestedSearchTableViewCell.swift in Sources */,

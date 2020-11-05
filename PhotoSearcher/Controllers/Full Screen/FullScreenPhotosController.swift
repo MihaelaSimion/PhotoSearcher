@@ -7,9 +7,10 @@
 
 import UIKit
 
-class FullScreenPhotosController: UIViewController {
+final class FullScreenPhotosController: UIViewController {
+  let fullScreenViewModel = FullScreenViewModel()
   var initialPhotoIndex: Int?
-  var photos: [LargePhoto] = []
+  private var itemSize: CGSize?
 
   @IBOutlet private weak var largePhotosCollectionView: UICollectionView!
 
@@ -20,6 +21,10 @@ class FullScreenPhotosController: UIViewController {
     largePhotosCollectionView.register(UINib(nibName: "PhotoCollectionViewCell", bundle: nil),
                                        forCellWithReuseIdentifier: "PhotoCollectionViewCell")
     largePhotosCollectionView.isPagingEnabled = true
+    if #available(iOS 14.0, *) {
+      largePhotosCollectionView.isPagingEnabled = false
+      // temporary fix - there is a bug in iOS 14 and scrollToItem doesn't work with isPagingEnabled set to true
+    }
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -41,16 +46,13 @@ class FullScreenPhotosController: UIViewController {
                                     userInfo: userInfo)
   }
 
-  func downloadLargePhotoForCellAt(indexPath: IndexPath) {
-    guard let url = URL(string: photos[indexPath.row].url) else { return }
-    PhotosDownloadService.downloadPhotoFrom(previewUrl: nil,
-                                            largeImageUrl: url) { image in
-      guard let largeImage = image else { return }
-      self.photos[indexPath.row].largeImage = largeImage
-      guard let stillVisibleCell = self.largePhotosCollectionView.cellForItem(at: indexPath)
+  func displayPhotoForCellAt(indexPath: IndexPath) {
+    fullScreenViewModel.downloadLargePhotoForCellAt(indexPath: indexPath) { [weak self] image in
+      guard let image = image,
+            let stillVisibleCell = self?.largePhotosCollectionView.cellForItem(at: indexPath)
               as? PhotoCollectionViewCell else { return }
       stillVisibleCell.stopActivityIndicator()
-      stillVisibleCell.display(largePhoto: largeImage)
+      stillVisibleCell.display(largePhoto: image)
     }
   }
 }
@@ -58,7 +60,7 @@ class FullScreenPhotosController: UIViewController {
 extension FullScreenPhotosController: UICollectionViewDelegate, UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView,
                       numberOfItemsInSection section: Int) -> Int {
-    return photos.count
+    return fullScreenViewModel.photos.count
   }
 
   func collectionView(_ collectionView: UICollectionView,
@@ -72,12 +74,12 @@ extension FullScreenPhotosController: UICollectionViewDelegate, UICollectionView
 
     if initialPhotoIndex != nil {
       fullScreenCell?.display(largePhoto: nil)
-    } else if let photo = photos[indexPath.row].largeImage {
+    } else if let photo = fullScreenViewModel.getPhotoFor(indexPath: indexPath) {
       fullScreenCell?.display(largePhoto: photo)
     } else {
       fullScreenCell?.display(largePhoto: nil)
       fullScreenCell?.startActivityIndicator()
-      downloadLargePhotoForCellAt(indexPath: indexPath)
+      displayPhotoForCellAt(indexPath: indexPath)
     }
 
     return fullScreenCell ?? UICollectionViewCell()
@@ -87,15 +89,14 @@ extension FullScreenPhotosController: UICollectionViewDelegate, UICollectionView
                       willDisplay cell: UICollectionViewCell,
                       forItemAt indexPath: IndexPath) {
     if initialPhotoIndex == nil,
-       indexPath.row == 0,
-       photos[0].largeImage == nil,
+       fullScreenViewModel.getPhotoFor(indexPath: indexPath) == nil,
        let photoCell = cell as? PhotoCollectionViewCell {
       // in case it was skipped until the selected image was displayed
       photoCell.startActivityIndicator()
-      downloadLargePhotoForCellAt(indexPath: indexPath)
+      displayPhotoForCellAt(indexPath: indexPath)
     } else if let photoCell = cell as? PhotoCollectionViewCell,
               photoCell.isImageNil(),
-              let image = photos[indexPath.row].largeImage {
+              let image = fullScreenViewModel.getPhotoFor(indexPath: indexPath) {
       photoCell.display(largePhoto: image)
       if photoCell.isActivityIndicatorAnimating() {
         photoCell.stopActivityIndicator()
@@ -108,9 +109,16 @@ extension FullScreenPhotosController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let size = CGSize(width: view.frame.width, height: view.frame.height)
-
-    return size
+    if itemSize == nil {
+      var heightSafeArea: CGFloat = 0
+      let window = UIApplication.shared.windows.first
+      if let topSafeArea: CGFloat = window?.safeAreaInsets.top,
+         let bottomSafeArea: CGFloat = window?.safeAreaInsets.bottom {
+        heightSafeArea += (topSafeArea + bottomSafeArea)
+      }
+      itemSize = CGSize(width: view.frame.width, height: view.frame.height - heightSafeArea)
+    }
+    return itemSize!
   }
 
   func collectionView(_ collectionView: UICollectionView,
