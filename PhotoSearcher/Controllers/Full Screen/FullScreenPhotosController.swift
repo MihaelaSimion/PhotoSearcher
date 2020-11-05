@@ -21,10 +21,6 @@ final class FullScreenPhotosController: UIViewController {
     largePhotosCollectionView.register(UINib(nibName: "PhotoCollectionViewCell", bundle: nil),
                                        forCellWithReuseIdentifier: "PhotoCollectionViewCell")
     largePhotosCollectionView.isPagingEnabled = true
-    if #available(iOS 14.0, *) {
-      largePhotosCollectionView.isPagingEnabled = false
-      // temporary fix - there is a bug in iOS 14 and scrollToItem doesn't work with isPagingEnabled set to true
-    }
   }
 
   override func viewDidAppear(_ animated: Bool) {
