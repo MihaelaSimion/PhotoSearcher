@@ -10,7 +10,7 @@ import UIKit
 final class FullScreenPhotosController: UIViewController {
   let fullScreenViewModel = FullScreenViewModel()
   var initialPhotoIndex: Int?
-
+  private var itemSize: CGSize?
 
   @IBOutlet private weak var largePhotosCollectionView: UICollectionView!
 
@@ -109,9 +109,16 @@ extension FullScreenPhotosController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let size = CGSize(width: view.frame.width, height: view.frame.height)
-
-    return size
+    if itemSize == nil {
+      var heightSafeArea: CGFloat = 0
+      let window = UIApplication.shared.windows.first
+      if let topSafeArea: CGFloat = window?.safeAreaInsets.top,
+         let bottomSafeArea: CGFloat = window?.safeAreaInsets.bottom {
+        heightSafeArea += (topSafeArea + bottomSafeArea)
+      }
+      itemSize = CGSize(width: view.frame.width, height: view.frame.height - heightSafeArea)
+    }
+    return itemSize!
   }
 
   func collectionView(_ collectionView: UICollectionView,
