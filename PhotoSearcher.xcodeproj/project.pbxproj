@@ -15,6 +15,7 @@
 		4709E76425501C04003A97F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4709E76325501C04003A97F7 /* Assets.xcassets */; };
 		4709E76725501C05003A97F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4709E76525501C05003A97F7 /* LaunchScreen.storyboard */; };
 		4709E772255023F7003A97F7 /* FullScreenPhotosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709E771255023F7003A97F7 /* FullScreenPhotosController.swift */; };
+		472531312553E9A000772ECC /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472531302553E9A000772ECC /* NotificationNames.swift */; };
 		4732596325516B5C0088C27C /* LargePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732596225516B5C0088C27C /* LargePhoto.swift */; };
 		4732596725516F5E0088C27C /* ActivityIndicatorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732596625516F5E0088C27C /* ActivityIndicatorExtension.swift */; };
 		4732596C2551950C0088C27C /* BasicAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732596B2551950C0088C27C /* BasicAlert.swift */; };
@@ -44,6 +45,7 @@
 		4709E76625501C05003A97F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4709E76825501C05003A97F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4709E771255023F7003A97F7 /* FullScreenPhotosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenPhotosController.swift; sourceTree = "<group>"; };
+		472531302553E9A000772ECC /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		4732596225516B5C0088C27C /* LargePhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargePhoto.swift; sourceTree = "<group>"; };
 		4732596625516F5E0088C27C /* ActivityIndicatorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorExtension.swift; sourceTree = "<group>"; };
 		4732596B2551950C0088C27C /* BasicAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAlert.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			children = (
 				4732596625516F5E0088C27C /* ActivityIndicatorExtension.swift */,
 				4732596B2551950C0088C27C /* BasicAlert.swift */,
+				472531302553E9A000772ECC /* NotificationNames.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				473259732551AD370088C27C /* CoreDataManager.swift in Sources */,
 				4732596325516B5C0088C27C /* LargePhoto.swift in Sources */,
 				4709E76225501C02003A97F7 /* PhotoSearcher.xcdatamodeld in Sources */,
+				472531312553E9A000772ECC /* NotificationNames.swift in Sources */,
 				4778E3D325504C79000B0EB7 /* SugestedSearchTableViewCell.swift in Sources */,
 				47E2B42C25515184001204DB /* PhotosSearchService.swift in Sources */,
 				4778E3C6255040C2000B0EB7 /* PhotoCollectionViewCell.swift in Sources */,

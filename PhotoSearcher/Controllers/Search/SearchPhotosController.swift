@@ -24,11 +24,31 @@ class SearchPhotosController: UIViewController {
     super.viewDidLoad()
     photosCollectionView.dataSource = self
     photosCollectionView.delegate = self
+
     photosCollectionView.register(UINib(nibName: "PhotoCollectionViewCell", bundle: nil),
                                   forCellWithReuseIdentifier: "PhotoCollectionViewCell")
+
     photosCollectionView.contentInset.top = 16
     photosCollectionView.contentInset.bottom = 16
+
+    addObservers()
     setUpSearchController()
+  }
+
+  func addObservers() {
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(scrollToLastPhotoViewedInFullScreen(_:)),
+                                           name: .UserSwipedToNewPhotoInFullScreen,
+                                           object: nil)
+  }
+
+  @objc
+  func scrollToLastPhotoViewedInFullScreen(_ notification: Notification) {
+    guard let userInfo = notification.userInfo as? [String: Int],
+          let photoIndex = userInfo["newPhotoIndex"] else { return }
+    photosCollectionView.scrollToItem(at: IndexPath(item: photoIndex, section: 0),
+                                      at: .centeredVertically,
+                                      animated: false)
   }
   
   func setUpSearchController() {

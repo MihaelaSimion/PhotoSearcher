@@ -31,6 +31,16 @@ class FullScreenPhotosController: UIViewController {
                                            animated: false)
   }
 
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    guard let visibleCell = largePhotosCollectionView.visibleCells.first,
+          let photoIndex = largePhotosCollectionView.indexPath(for: visibleCell)?.row else { return }
+    let userInfo = ["newPhotoIndex": photoIndex]
+    NotificationCenter.default.post(name: .UserSwipedToNewPhotoInFullScreen,
+                                    object: nil,
+                                    userInfo: userInfo)
+  }
+
   func downloadLargePhotoForCellAt(indexPath: IndexPath) {
     guard let url = URL(string: photos[indexPath.row].url) else { return }
     PhotosDownloadService.downloadPhotoFrom(previewUrl: nil,
