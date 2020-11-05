@@ -34,7 +34,7 @@ final class SearchPhotosController: UIViewController {
     guard segue.identifier == "ShowFullScreen",
           let fullScreenPhotosController = segue.destination as? FullScreenPhotosController else { return }
     fullScreenPhotosController.initialPhotoIndex = selectedPreviewPhotoIndexPath?.row
-    fullScreenPhotosController.photos = searchViewModel.largePhotos
+    fullScreenPhotosController.fullScreenViewModel.photos = searchViewModel.largePhotos
   }
 
   func addObservers() {
