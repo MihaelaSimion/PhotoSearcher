@@ -61,7 +61,7 @@ class CoreDataManager {
   }
 
   private func existingSearchWith(query: String) -> SuccessfulSearch? { // to not save duplicates
-    let predicate = NSPredicate(format: "%@ IN [c] query", query)
+    let predicate = NSPredicate(format: "query == [c] %@", query)
     let existingSearch = fetchSuccessfulSearches(predicate: predicate)?.first
 
     return existingSearch
