@@ -147,8 +147,7 @@ extension SearchPhotosController: UICollectionViewDelegate, UICollectionViewData
     let photoCell = photosCollectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell",
                                                              for: indexPath) as? PhotoCollectionViewCell
     
-    photoCell?.display(previewPhoto: nil)
-    downloadPreviewPhotoForCellAt(indexPath: indexPath)
+    photoCell?.display(previewPhoto: nil) // reset photo
     return photoCell ?? UICollectionViewCell()
   }
   
@@ -163,8 +162,9 @@ extension SearchPhotosController: UICollectionViewDelegate, UICollectionViewData
        photoDataResults.count != totalSearchResults {
       currentSearchPage += 1
       searchPhotos(pageNumber: currentSearchPage)
-    } else if let collectionCell = cell as? PhotoCollectionViewCell,
-              collectionCell.isImageNil() {
+    }
+    if let collectionCell = cell as? PhotoCollectionViewCell,
+       collectionCell.isImageNil() {
       downloadPreviewPhotoForCellAt(indexPath: indexPath)
     }
   }
