@@ -11,6 +11,7 @@ struct PhotosDownloadService {
 
   static func downloadPhotoFrom(previewUrl: URL?,
                                 largeImageUrl: URL?,
+                                completionDispatchQueue: DispatchQueue = DispatchQueue.main,
                                 completion: @escaping (UIImage?) -> Void) {
     let url = previewUrl != nil ? previewUrl : largeImageUrl
     guard let imageUrl = url else {
@@ -21,11 +22,11 @@ struct PhotosDownloadService {
       if error == nil,
          let data = data,
          let image = UIImage(data: data) {
-        DispatchQueue.main.async {
+        completionDispatchQueue.async {
           completion(image)
         }
       } else {
-        DispatchQueue.main.async {
+        completionDispatchQueue.async {
           completion(nil)
         }
       }

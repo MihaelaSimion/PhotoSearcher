@@ -55,6 +55,7 @@ class SearchPhotosController: UIViewController {
   
   func resetSearchResults() {
     totalSearchResults = 0
+    currentSearchPage = 1
     photoDataResults = []
     largePhotos = []
     photosCollectionView.reloadData()
