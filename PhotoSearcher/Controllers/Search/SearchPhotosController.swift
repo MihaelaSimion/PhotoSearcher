@@ -9,6 +9,8 @@ import UIKit
 
 class SearchPhotosController: UIViewController {
   lazy var activityIndicator = UIActivityIndicatorView()
+  var itemSize: CGSize?
+  let itemsSpacing: CGFloat = 16
   lazy var successfulSearchHandler: SuccessfulSearchHandler = CoreDataManager()
   var searchController: UISearchController?
   var totalSearchResults = 0
@@ -136,19 +138,6 @@ extension SearchPhotosController: UISearchBarDelegate {
   }
 }
 
-extension SearchPhotosController: UICollectionViewDelegateFlowLayout {
-  func collectionView(_ collectionView: UICollectionView,
-                      layout collectionViewLayout: UICollectionViewLayout,
-                      sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let trailingAndLeadingContstraints: CGFloat = 24 * 2
-    let spacing: CGFloat = 16
-    let splitScreenWidthIn: CGFloat = 2
-    let width = (view.frame.width - trailingAndLeadingContstraints - spacing) / splitScreenWidthIn
-    
-    return CGSize(width: width, height: width)
-  }
-}
-
 extension SearchPhotosController: UICollectionViewDelegate, UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return photoDataResults.count
@@ -170,7 +159,7 @@ extension SearchPhotosController: UICollectionViewDelegate, UICollectionViewData
   
   func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell,
                       forItemAt indexPath: IndexPath) {
-    if indexPath.row == photoDataResults.count - 1,
+    if indexPath.item == photoDataResults.count - 1,
        photoDataResults.count != totalSearchResults {
       currentSearchPage += 1
       searchPhotos(pageNumber: currentSearchPage)
@@ -178,6 +167,33 @@ extension SearchPhotosController: UICollectionViewDelegate, UICollectionViewData
               collectionCell.isImageNil() {
       downloadPreviewPhotoForCellAt(indexPath: indexPath)
     }
+  }
+}
+
+extension SearchPhotosController: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView,
+                      layout collectionViewLayout: UICollectionViewLayout,
+                      sizeForItemAt indexPath: IndexPath) -> CGSize {
+    if itemSize == nil {
+      let trailingAndLeadingConstraints: CGFloat = 24 * 2
+      let splitScreenWidthIn: CGFloat = 2
+      let width = (view.frame.width - trailingAndLeadingConstraints - itemsSpacing) / splitScreenWidthIn
+      itemSize = CGSize(width: width, height: width)
+    }
+
+    return itemSize! // safe as it receives a value above
+  }
+
+  func collectionView(_ collectionView: UICollectionView,
+                      layout collectionViewLayout: UICollectionViewLayout,
+                      minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return itemsSpacing
+  }
+
+  func collectionView(_ collectionView: UICollectionView,
+                      layout collectionViewLayout: UICollectionViewLayout,
+                      minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return itemsSpacing
   }
 }
 
